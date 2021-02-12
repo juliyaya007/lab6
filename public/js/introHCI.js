@@ -24,7 +24,25 @@ function addProjectDetails(e) {
 	// Get the div ID, e.g., "project3"
 	var projectID = $(this).closest('.project').attr('id');
 	// get rid of 'project' from the front of the id 'project3'
+	
 	var idNumber = projectID.substr('project'.length);
-
+	var url = "http://localhost:3000/project/"+idNumber;
+	$.get(url, callBackFn);
 	console.log("User clicked on project " + idNumber);
+}
+
+function callBackFn(result) {
+	console.log("call!");
+	console.log(result);
+	// var a = "#"+result['id']+ ".project" +" .details";// 
+	var a = "#project" + result['id'] + " .details";
+	console.log(a);
+	// 
+	// console.log("callllll");
+	var projectHTML = '<a href="#" class="thumbnail">' +
+	  '<p>' + result['title'] + '</p>' +
+	  '<p><small>' + result['date'] +
+	  '<img src="' + result['image'] + '" class="detailsImage">' +
+	  '</small></p>' + '<p>' + result['summary'] + '</p>' +'</a>'; 
+	$(a).html(projectHTML);
 }
